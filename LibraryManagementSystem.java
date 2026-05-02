@@ -36,11 +36,11 @@ class Book{
 
 }
 
-class User{
+class LibraryUser{
     private int registrationNumber;
     private String name;
 
-    public User(int registrationNumber, String name){
+    public LibraryUser(int registrationNumber, String name){
         this.registrationNumber = registrationNumber;
         this.name = name;
     }
@@ -56,12 +56,12 @@ class User{
 
 class IssuedRecords{
     private Book book;
-    private User user;
+    private LibraryUser user;
     private LocalDate issuedDate;
     private LocalDate returnDate;
     private boolean isReturned;
 
-    public IssuedRecords(Book book, User user){
+    public IssuedRecords(Book book, LibraryUser user){
         this.book = book;
         this.user = user;
         this.issuedDate = LocalDate.now();
@@ -72,7 +72,7 @@ class IssuedRecords{
         return book;
     }
 
-    public User getUser(){
+    public LibraryUser getUser(){
         return user;
     }
 
@@ -92,7 +92,7 @@ class IssuedRecords{
 
 class Library{
     private Map<Integer, Book> books;
-    private Map<Integer, User> users;
+    private Map<Integer, LibraryUser> users;
     private List<IssuedRecords> records = new ArrayList<>();
 
     public Library(){
@@ -104,13 +104,13 @@ class Library{
         books.put(book.getBookID(), book);
     }
 
-    public void registerUser(User user){
+    public void registerUser(LibraryUser user){
         users.put(user.getRegistrationNumber(), user);
     }
 
     public void issueBook(int bookId, int registrationNumber){
         Book book = books.get(bookId);
-        User user = users.get(registrationNumber);
+        LibraryUser user = users.get(registrationNumber);
 
         if(book == null || user == null) {
             System.out.println("Error 404");
@@ -177,8 +177,8 @@ public class LibraryManagementSystem {
         library.addBook(new Book(1, "Java Basics", "James Gosling"));
         library.addBook(new Book(2, "DSA", "CLRS"));
 
-        library.registerUser(new User(101, "Shanmukh"));
-        library.registerUser(new User(102, "Raj"));
+        library.registerUser(new LibraryUser(101, "Shanmukh"));
+        library.registerUser(new LibraryUser(102, "Raj"));
 
         library.issueBook(1, 101);
         library.issueBook(2, 101);
